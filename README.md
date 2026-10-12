@@ -5,10 +5,11 @@ Livecoding music in [Janet](https://janet-lang.org/), running in the browser as 
 Yes, Janet works from wasm. `build.sh` compiles Janet's amalgamated source plus `src/dsp.c` to a standalone WASI module (`web/janey.wasm`, ~840 KiB) using [wasi-sdk](https://github.com/WebAssembly/wasi-sdk). No Emscripten is needed. The module runs inside an `AudioWorklet`.
 
 ```
+./build.sh          # first time only; produces web/janey.wasm
 npm run serve        # then open http://localhost:8080
 ```
 
-Click **Start audio**, edit, and press **Ctrl+Enter** to hot-swap the patch. **Ctrl+.** silences. A prebuilt `web/janey.wasm` is committed, so you only need to rebuild if you change `src/`.
+Click **Start audio**, edit, and press **Ctrl+Enter** to hot-swap the patch. **Ctrl+.** silences. `web/janey.wasm` is not committed. Run `./build.sh` once first (see Building below).
 
 ## How it works
 
@@ -60,5 +61,9 @@ npm test         # Node renders patches through the wasm and checks the audio
 ```
 
 wasi-sdk 25 or newer is required, because Janet's error handling uses `setjmp`/`longjmp` and older SDKs lower it to Emscripten-only helpers. The module uses WebAssembly exception handling, which Chrome, Firefox and Safari all support.
+
+## Hosting on GitHub Pages
+
+`.github/workflows/pages.yml` builds the wasm, runs the tests, and deploys `web/` to GitHub Pages on every push to `main`. In the repository settings, set Pages → Source to "GitHub Actions" if the workflow's automatic enablement doesn't take. The site is fully static, and all URLs are relative, so it works under `/janey/`.
 
 Janet is MIT licensed, and so is this project.
