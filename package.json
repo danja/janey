@@ -1,0 +1,12 @@
+{
+  "name": "janey",
+  "version": "0.1.0",
+  "description": "Livecoding music with Janet compiled to WebAssembly, plus a small DSP core",
+  "type": "module",
+  "scripts": {
+    "build": "./build.sh",
+    "test": "node --test \"test/*.test.mjs\"",
+    "serve": "python3 -m http.server 8080 --directory web"
+  },
+  "license": "MIT"
+}

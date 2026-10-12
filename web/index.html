@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>janey</title>
+<style>
+  :root { color-scheme: dark; --bg:#14141a; --fg:#e6e6ec; --dim:#8a8a99; --acc:#7cf0b5; --err:#ff7a8a; --panel:#1c1c25; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+         display:flex; flex-direction:column; height:100vh; }
+  header { display:flex; gap:.75rem; align-items:center; padding:.6rem 1rem; background:var(--panel); flex-wrap:wrap; }
+  h1 { font-size:1rem; margin:0 .5rem 0 0; color:var(--acc); letter-spacing:.1em; }
+  button, select { background:#2a2a38; color:var(--fg); border:1px solid #3a3a4c; border-radius:6px; padding:.35rem .8rem; font:inherit; cursor:pointer; }
+  button:hover, select:hover { border-color:var(--acc); }
+  button.primary { background:var(--acc); color:#0b1a12; border-color:var(--acc); font-weight:600; }
+  .hint { color:var(--dim); font-size:.8rem; margin-left:auto; }
+  main { flex:1; display:flex; flex-direction:column; min-height:0; }
+  textarea { flex:1; resize:none; border:0; outline:0; background:var(--bg); color:var(--fg); padding:1rem; font:inherit;
+             tab-size:2; min-height:8rem; }
+  textarea.flash { animation: flash .25s; }
+  @keyframes flash { from { background:#1f3a2c; } to { background:var(--bg); } }
+  canvas { width:100%; height:90px; background:#0f0f14; display:block; border-top:1px solid #2a2a38; }
+  pre#log { margin:0; padding:.6rem 1rem; height:7rem; overflow:auto; background:var(--panel); color:var(--dim); white-space:pre-wrap; }
+  pre#log .err { color:var(--err); } pre#log .ok { color:var(--acc); }
+</style>
+</head>
+<body>
+<header>
+  <h1>JANEY</h1>
+  <button id="start" class="primary">Start audio</button>
+  <button id="run" disabled>Run (Ctrl+Enter)</button>
+  <button id="stop" disabled>Silence (Ctrl+.)</button>
+  <select id="examples" aria-label="Examples"></select>
+  <span class="hint">Janet → WebAssembly livecoding · <a href="https://janet-lang.org/docs/" style="color:inherit">Janet docs</a></span>
+</header>
+<main>
+  <textarea id="code" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+  <canvas id="scope" width="1200" height="90"></canvas>
+  <pre id="log"></pre>
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>
